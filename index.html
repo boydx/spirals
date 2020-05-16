@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>spirals</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+        }
+        #draw {
+            height: 100vh;
+            width: 100vw;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="draw"></div>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script>
+        const draw = d3.select('#draw')
+        const width = draw.node().offsetWidth;
+        const height = draw.node().offsetHeight;
+        const svg = draw
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+        let n = 0
+        let w = 0
+        let h = 0
+        const s = 1000
+        const e = 4
+        const i = 10000
+        while (n < i) {
+            const c = n/4 // n/(180/Math.PI)
+            const x = (width/2 - (Math.cos(c)*((n/s)**e)))
+            const y = (height/2 - (Math.sin(c)*((n/s)**e)))
+            if (n == 0) {
+                w = width/2 
+                h = height/2
+            }
+            const r = 100 + (155*Math.random())
+            const g = 100 + (155*Math.random())
+            const b = 100 + (155*Math.random())
+            // let hue = 60 + (n*4/i)*80 // (360*Math.random()) // (n/i)*100
+            // let sat = 100
+            // let val = 50
+            const a =  n/59000 // Math.random()
+            svg.append('line')
+            .attr("x1", w)
+            .attr("y1", h)
+            .attr("x2", x)
+            .attr("y2", y)
+            .style("stroke", `rgba(${r},${g},${b},${a})`)
+            // .style("stroke", `hsla(${hue},${sat}%,${val}%,${a})`)
+            .style("stroke-width", 10 /* *Math.random() */)
+            .style("stroke-linecap", "round")
+            w = x
+            h = y
+            n++
+        }
+    
+    </script>
+</body>
+
+</html>
